@@ -10,7 +10,7 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Taleem ka Safar",
-  description: "Entry-test preparation — subject-wise MCQs, mock tests, analytics",
+  description: "Entry-test preparation — subject-wise MCQs, mock tests, analytics.",
 };
 
 const geistSans = Geist({

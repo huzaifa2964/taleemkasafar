@@ -5,7 +5,7 @@ import type { EntryTest } from "@/lib/queries/entry-test";
 
 /**
  * Top header for the dashboard shell. Left: page title. Center: entry-test
- * selector. Right: search + avatar.
+ * selector. Right: search + avatar menu.
  */
 export function DashboardHeader({
   title,
