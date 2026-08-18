@@ -8,7 +8,7 @@ export type SubjectOverview =
 export type ChapterOverview =
   Database["public"]["Views"]["chapter_overview"]["Row"];
 
-// Cache tags — revalidate these after a catalog import / schema data change.
+// Cache tags — revalidate after catalog import or schema data changes.
 export const CATALOG_TAG = "catalog";
 
 /**

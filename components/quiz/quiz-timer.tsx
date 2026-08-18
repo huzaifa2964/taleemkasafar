@@ -6,7 +6,7 @@ import { Icon } from "@/components/dashboard/icon";
 import { cn } from "@/lib/utils";
 
 /**
- * Display-only countdown anchored to a server-set expiry. The server is the
+ * Display-only countdown anchored to a server-set expiry timestamp. The server is the
  * source of truth (submit_mock rejects/auto-finalizes after expiry); this just
  * ticks locally and fires onExpire once when it hits zero.
  */
