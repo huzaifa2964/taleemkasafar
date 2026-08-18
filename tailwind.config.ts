@@ -12,7 +12,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // Soft Brutalism: Space Grotesk for headlines, Inter for body.
+        // Soft Brutalism design system: Space Grotesk for headlines, Inter for body text
         headline: ["var(--font-space-grotesk)", "sans-serif"],
         body: ["var(--font-inter)", "sans-serif"],
         sans: ["var(--font-inter)", "sans-serif"],

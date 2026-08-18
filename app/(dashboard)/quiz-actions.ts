@@ -15,8 +15,8 @@ export type PracticeGrade = {
 };
 
 /**
- * Get-or-create the in-progress practice/past-paper attempt for a chapter.
- * Returns the attempt id (or null on failure).
+ * Get-or-create the in-progress practice or past-paper attempt for a chapter.
+ * Returns the attempt ID on success, or null on failure.
  */
 export async function startPractice(
   entryTestSlug: string,
