@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 export type AuthState = { error: string | null };
 
 /**
- * Server Action: email + password sign in.
+ * Server Action: email + password sign in authentication.
  * Business logic stays on the server; the form is a thin client wrapper.
  * On success it redirects to "/" (server-side).
  */

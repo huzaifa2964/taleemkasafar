@@ -3,9 +3,9 @@ import { cookies } from "next/headers";
 import { Database } from "@/lib/database.types";
 
 /**
- * Especially important if using Fluid compute: Don't put this client in a
- * global variable. Always create a new client within each function when using
- * it.
+ * Server-side Supabase client with cookie-based auth session management.
+ * Important: Don't store in global variable. Always create fresh client
+ * within each function, especially when using Fluid compute.
  */
 export async function createClient() {
   const cookieStore = await cookies();
