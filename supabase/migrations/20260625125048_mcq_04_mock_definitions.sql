@@ -17,7 +17,6 @@ create table mock_test_blueprints (
 create index idx_blueprints_test on mock_test_blueprints (entry_test_id, is_active, display_order);
 create trigger trg_blueprints_updated before update on mock_test_blueprints
   for each row execute function set_updated_at();
-
 -- mock_blueprint_slots: per-subject composition of a blueprint.
 create table mock_blueprint_slots (
   id              uuid primary key default gen_random_uuid(),

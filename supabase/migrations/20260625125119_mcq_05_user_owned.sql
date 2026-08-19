@@ -11,7 +11,6 @@ create table profiles (
 create index idx_profiles_selected_test on profiles (selected_test_id);
 create trigger trg_profiles_updated before update on profiles
   for each row execute function set_updated_at();
-
 -- auto-create a profile row when a new auth user is created.
 create or replace function handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
@@ -25,7 +24,6 @@ $$;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function handle_new_user();
-
 -- attempts: one session in practice or mock mode.
 create table attempts (
   id              uuid primary key default gen_random_uuid(),
@@ -50,7 +48,6 @@ create index idx_attempts_user_test on attempts (user_id, entry_test_id, started
 create index idx_attempts_user_mode on attempts (user_id, mode, status);
 create trigger trg_attempts_updated before update on attempts
   for each row execute function set_updated_at();
-
 -- attempt_answers: one row per answered question (analytics backbone).
 create table attempt_answers (
   id                 uuid primary key default gen_random_uuid(),
@@ -66,7 +63,6 @@ create table attempt_answers (
 create index idx_answers_attempt on attempt_answers (attempt_id);
 create index idx_answers_question on attempt_answers (question_id);
 create index idx_answers_correct on attempt_answers (attempt_id, is_correct);
-
 -- mock_results: 1:1 with a submitted mock attempt.
 create table mock_results (
   id              uuid primary key default gen_random_uuid(),
@@ -83,7 +79,6 @@ create table mock_results (
   constraint chk_score_range check (score_percent >= 0 and score_percent <= 100)
 );
 create index idx_mock_results_attempt on mock_results (attempt_id);
-
 -- bookmarks: explicit user-saved questions.
 create table bookmarks (
   id          uuid primary key default gen_random_uuid(),

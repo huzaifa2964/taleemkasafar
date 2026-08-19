@@ -8,10 +8,11 @@
 -- =====================================================================
 -- 1. Additive columns (safe, nullable / defaulted)
 -- =====================================================================
-alter table attempts        add column if not exists usage question_usage;            -- practice surface (past_paper|practice)
-alter table attempt_answers add column if not exists display_order int;               -- frozen mock ordering
+alter table attempts        add column if not exists usage question_usage;
+-- practice surface (past_paper|practice)
+alter table attempt_answers add column if not exists display_order int;
+-- frozen mock ordering
 alter table attempt_answers add column if not exists marked_for_review boolean not null default false;
-
 -- =====================================================================
 -- 2. Hide the answer key from the API roles (column-level privilege).
 --    RLS row policies remain; SECURITY DEFINER RPCs (owner = postgres) keep
@@ -20,7 +21,6 @@ alter table attempt_answers add column if not exists marked_for_review boolean n
 revoke select on table public.question_options from anon, authenticated;
 grant  select (id, question_id, option_label, content, content_format, display_order)
   on table public.question_options to anon, authenticated;
-
 -- =====================================================================
 -- 3. Grading / attempt RPCs (SECURITY DEFINER, search_path pinned,
 --    ownership-checked in the body).
@@ -63,7 +63,6 @@ begin
   return v_attempt;
 end;
 $$;
-
 -- 3b. Grade one practice answer and return correctness + explanation.
 create or replace function submit_practice_answer(
   p_attempt uuid,
@@ -102,7 +101,6 @@ begin
     (select q.explanation from questions q where q.id = p_question);
 end;
 $$;
-
 -- 3c. Generate + freeze a mock attempt from a blueprint (server-side selection).
 create or replace function generate_mock_attempt(p_blueprint uuid)
 returns uuid
@@ -197,7 +195,6 @@ begin
   return v_attempt;
 end;
 $$;
-
 -- 3d. Submit + grade a mock in one transaction; idempotent.
 create or replace function submit_mock(p_attempt uuid, p_answers jsonb)
 returns uuid
@@ -271,7 +268,6 @@ begin
   return p_attempt;
 end;
 $$;
-
 -- 3e. Lock down EXECUTE: authenticated only.
 revoke execute on function start_attempt(text, uuid, question_usage)        from anon, public;
 revoke execute on function submit_practice_answer(uuid, uuid, uuid, int)    from anon, public;
@@ -281,7 +277,6 @@ grant  execute on function start_attempt(text, uuid, question_usage)        to a
 grant  execute on function submit_practice_answer(uuid, uuid, uuid, int)    to authenticated;
 grant  execute on function generate_mock_attempt(uuid)                      to authenticated;
 grant  execute on function submit_mock(uuid, jsonb)                         to authenticated;
-
 -- =====================================================================
 -- 4. Seed the NET full mock blueprint + per-subject slots (idempotent).
 --    test_subjects resolved by slug (no hardcoded generated IDs).
@@ -295,7 +290,6 @@ on conflict (external_id) do update
   set duration_seconds = excluded.duration_seconds,
       total_questions  = excluded.total_questions,
       description      = excluded.description;
-
 -- Slots (display_order sets section order: Maths -> Physics -> English).
 insert into mock_blueprint_slots (blueprint_id, test_subject_id, question_count, past_paper_min, difficulty_mix, display_order)
 select bp.id, ts.id, v.qcount, 0, v.mix, v.ord

@@ -14,7 +14,6 @@ create table entry_tests (
 create index idx_entry_tests_active on entry_tests (is_active, display_order);
 create trigger trg_entry_tests_updated before update on entry_tests
   for each row execute function set_updated_at();
-
 -- subjects: canonical logical subjects (Physics, Mathematics, English).
 create table subjects (
   id          uuid primary key default gen_random_uuid(),
@@ -26,7 +25,6 @@ create table subjects (
 );
 create trigger trg_subjects_updated before update on subjects
   for each row execute function set_updated_at();
-
 -- test_subjects: composition link (which subjects a test includes + per-test meta).
 create table test_subjects (
   id                  uuid primary key default gen_random_uuid(),
@@ -45,7 +43,6 @@ create index idx_test_subjects_test on test_subjects (entry_test_id, display_ord
   where deleted_at is null;
 create trigger trg_test_subjects_updated before update on test_subjects
   for each row execute function set_updated_at();
-
 -- topics: self-referential syllabus tree (chapters/topics), per canonical subject.
 create table topics (
   id              uuid primary key default gen_random_uuid(),

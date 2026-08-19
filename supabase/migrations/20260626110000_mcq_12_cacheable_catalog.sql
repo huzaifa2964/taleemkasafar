@@ -32,7 +32,6 @@ from test_subjects ts
 join subjects s     on s.id = ts.subject_id
 join entry_tests et on et.id = ts.entry_test_id
 where ts.deleted_at is null and ts.is_active;
-
 -- chapter_overview: switch to security definer + grant anon read.
 create or replace view public.chapter_overview
 with (security_invoker = false) as
@@ -72,14 +71,12 @@ where qt_scope.deleted_at is null
   and qt_scope.is_active
   and t.parent_topic_id is null
   and t.deleted_at is null;
-
 -- Public entry-test list (active tests only) for the selector — non-sensitive.
 create or replace view public.entry_test_public
 with (security_invoker = false) as
 select id, slug, name, description, source, display_order
 from entry_tests
 where is_active = true;
-
 grant select on public.subject_overview  to anon, authenticated;
 grant select on public.chapter_overview   to anon, authenticated;
 grant select on public.entry_test_public  to anon, authenticated;

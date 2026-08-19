@@ -8,7 +8,6 @@ create type moderation_status as enum ('draft', 'flagged', 'approved');
 create type user_role         as enum ('student', 'admin');
 create type topic_kind        as enum ('chapter', 'topic', 'subtopic');
 create type resource_kind     as enum ('note', 'slides', 'video');
-
 create or replace function set_updated_at()
 returns trigger language plpgsql set search_path = '' as $$
 begin

@@ -6,7 +6,6 @@ begin
   return new;
 end;
 $$;
-
 -- Internal trigger/RLS helpers, not REST RPCs. Revoke EXECUTE from API roles.
 revoke execute on function public.handle_new_user() from anon, authenticated;
 revoke execute on function public.is_admin() from anon;

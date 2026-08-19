@@ -31,7 +31,6 @@ create index idx_questions_moderation on questions (moderation_status)
   where moderation_status <> 'approved';
 create trigger trg_questions_updated before update on questions
   for each row execute function set_updated_at();
-
 -- question_tests: per-test usage (past_paper/practice) + optional overrides.
 create table question_tests (
   id            uuid primary key default gen_random_uuid(),
@@ -49,7 +48,6 @@ create index idx_question_tests_test_usage on question_tests (entry_test_id, usa
 create index idx_question_tests_question on question_tests (question_id);
 create trigger trg_question_tests_updated before update on question_tests
   for each row execute function set_updated_at();
-
 -- question_options: one row per option (a/b/c/d).
 create table question_options (
   id             uuid primary key default gen_random_uuid(),
@@ -68,7 +66,6 @@ create unique index uq_one_correct_option on question_options (question_id)
   where is_correct = true;
 create trigger trg_question_options_updated before update on question_options
   for each row execute function set_updated_at();
-
 -- learning_resources: future (notes/slides/videos) attached to a syllabus node.
 create table learning_resources (
   id                uuid primary key default gen_random_uuid(),
