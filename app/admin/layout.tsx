@@ -81,16 +81,16 @@ export default async function AdminLayout({
               👥 Users
             </a>
             <a
+              href="/admin/entry-tests"
+              className="block px-4 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100"
+            >
+              🎓 Entry Tests
+            </a>
+            <a
               href="/admin/questions"
               className="block px-4 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100"
             >
               📝 Questions
-            </a>
-            <a
-              href="/admin/entry-tests"
-              className="block px-4 py-2 text-sm font-medium text-gray-700 rounded-md hover:bg-gray-100"
-            >
-              📚 Entry Tests
             </a>
             <a
               href="/admin/blogs"
